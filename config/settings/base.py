@@ -1,9 +1,9 @@
 """
 Base settings for Farm project.
 """
-
+from decouple import config
 from pathlib import Path
-
+from datetime import timedelta
 # ==========================================================
 # PATHS
 # ==========================================================
@@ -26,6 +26,8 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
+    'drf_spectacular',
+    'django_filters',
 ]
 
 LOCAL_APPS = [
@@ -164,12 +166,44 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ==========================================================
 
 REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "common.pagination.DefaultPagination",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
+
+    "DEFAULT_PAGINATION_CLASS":
+        "common.pagination.DefaultPagination",
+
     "PAGE_SIZE": 20,
-    "EXCEPTION_HANDLER": "common.exception_handler.custom_exception_handler",
+
+    "DEFAULT_FILTER_BACKENDS": (
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.SearchFilter",
+        "rest_framework.filters.OrderingFilter",
+    ),
+
+    "DEFAULT_SCHEMA_CLASS":
+        "drf_spectacular.openapi.AutoSchema",
+
+    "EXCEPTION_HANDLER":
+        "common.exception_handler.custom_exception_handler",
 }
 
+SIMPLE_JWT = {
 
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+
+    "ROTATE_REFRESH_TOKENS": True,
+
+    "BLACKLIST_AFTER_ROTATION": True,
+
+    "UPDATE_LAST_LOGIN": True,
+}
 # ==========================================================
 # LOGIN
 # ==========================================================
@@ -179,3 +213,16 @@ LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"
 
 LOGOUT_REDIRECT_URL = "/"
+
+
+
+SPECTACULAR_SETTINGS = {
+
+    "TITLE": "Farm API",
+
+    "DESCRIPTION": "Smart Agriculture Platform",
+
+    "VERSION": "1.0.0",
+
+    "SERVE_INCLUDE_SCHEMA": False,
+}

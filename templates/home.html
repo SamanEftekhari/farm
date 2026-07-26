@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}ASIGI FARM | Smart Agriculture Platform{% endblock %}
+
+{% block content %}
+
+<header class="hero">
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="container">
+
+            <a href="/" class="logo text-decoration-none">
+
+                🌱 <span>ASIGI FARM</span>
+
+            </a>
+
+            <ul class="menu">
+
+                <li><a href="/">خانه</a></li>
+
+                <li><a href="#features">امکانات</a></li>
+
+                <li><a href="/api/docs/">API Docs</a></li>
+
+                <li><a href="/admin/">ورود</a></li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+    <!-- ================= SLIDER ================= -->
+
+    <div class="slider">
+
+        <div class="slide active">
+
+            <img src="{% static 'images/slide1.jpg' %}" alt="ASIGI FARM">
+
+        </div>
+
+        <div class="slide">
+
+            <img src="{% static 'images/slide2.jpg' %}" alt="ASIGI FARM">
+
+        </div>
+
+        <div class="slide">
+
+            <img src="{% static 'images/slide3.jpg' %}" alt="ASIGI FARM">
+
+        </div>
+
+        <div class="overlay"></div>
+
+        <!-- ================= HERO ================= -->
+
+        <div class="hero-content">
+
+            <h4>
+
+                SMART AGRICULTURE PLATFORM
+
+            </h4>
+
+            <h1>
+
+                ASIGI FARM
+
+            </h1>
+
+            <h2>
+
+                سامانه هوشمند مدیریت مزارع
+
+            </h2>
+
+            <p>
+
+                مدیریت هوشمند مزارع با GIS، اینترنت اشیاء، سنسورها، هوش مصنوعی و تحلیل داده
+
+            </p>
+
+            <div class="buttons">
+
+                <a href="/admin/" class="btn btn-green">
+
+                    ورود به سامانه
+
+                </a>
+
+                <a href="/api/docs/" class="btn btn-white">
+
+                    مستندات API
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- ================= GLASS CARD ================= -->
+
+        <div class="glass-card">
+
+            <h3>
+
+                Live Farm Status
+
+            </h3>
+
+            <div class="status">
+
+                🌡 Temperature
+
+                <span>26°C</span>
+
+            </div>
+
+            <div class="status">
+
+                💧 Humidity
+
+                <span>67%</span>
+
+            </div>
+
+            <div class="status">
+
+                📡 Sensors
+
+                <span>Online</span>
+
+            </div>
+
+            <div class="status">
+
+                🤖 AI Engine
+
+                <span>Ready</span>
+
+            </div>
+
+        </div>
+
+        <!-- ================= DOTS ================= -->
+
+        <div class="dots">
+
+            <span class="dot active"></span>
+
+            <span class="dot"></span>
+
+            <span class="dot"></span>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ================= FEATURES ================= -->
+
+<section id="features" class="features">
+
+    <div class="container">
+
+        <div class="card">
+
+            <i>🗺</i>
+
+            <h3>GIS Mapping</h3>
+
+            <p>
+
+                مدیریت قطعات، نقشه‌ها و مرزهای مزارع
+
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <i>📡</i>
+
+            <h3>IoT Sensors</h3>
+
+            <p>
+
+                اتصال سنسورهای دما، رطوبت، EC، pH و سایر تجهیزات
+
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <i>🤖</i>
+
+            <h3>AI Prediction</h3>
+
+            <p>
+
+                تحلیل و پیش‌بینی هوشمند با استفاده از یادگیری ماشین
+
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <i>💧</i>
+
+            <h3>Smart Irrigation</h3>
+
+            <p>
+
+                مدیریت و کنترل هوشمند سیستم‌های آبیاری
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container footer-content">
+
+        <span>
+
+            © 2026 ASIGI FARM
+
+        </span>
+
+        <span>
+
+            Smart Agriculture Platform
+
+        </span>
+
+        <span>
+
+            Developed by <strong>S.Eftekhari</strong>
+
+        </span>
+
+    </div>
+
+</footer>
+
+<script src="{% static 'js/app.js' %}"></script>
+
+{% endblock %}

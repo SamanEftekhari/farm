@@ -1,49 +1,24 @@
-"""
-Development settings for Farm project.
-"""
+from decouple import config
 
 from .base import *
 
+SECRET_KEY = config("SECRET_KEY")
 
-# ==========================================================
-# SECURITY
-# ==========================================================
+DEBUG = config("DEBUG", default=True, cast=bool)
 
-SECRET_KEY = "django-insecure-change-this-key"
-
-DEBUG = True
-
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-]
-
-
-# ==========================================================
-# DATABASE
-# ==========================================================
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS",
+    default="127.0.0.1,localhost",
+    cast=lambda v: [s.strip() for s in v.split(",")],
+)
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
-
-
-# ==========================================================
-# EMAIL
-# ==========================================================
-
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-
-# ==========================================================
-# CACHE
-# ==========================================================
-
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "ENGINE": config("DB_ENGINE"),
+        "NAME": BASE_DIR / config("DB_NAME"),
+        "USER": config("DB_USER", default=""),
+        "PASSWORD": config("DB_PASSWORD", default=""),
+        "HOST": config("DB_HOST", default=""),
+        "PORT": config("DB_PORT", default=""),
     }
 }
