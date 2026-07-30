@@ -1,21 +1,28 @@
-/* ===============================
-   FARM Slider
-================================== */
+/* ==========================================
+   ASIGI FARM
+   Slider
+========================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
     const slides = document.querySelectorAll(".slide");
     const dots = document.querySelectorAll(".dot");
 
+    // اگر صفحه اسلایدر ندارد (مثل صفحه نقشه)، خارج شو.
+    if (slides.length === 0 || dots.length === 0) {
+        return;
+    }
+
     let current = 0;
+    let timer = null;
 
     function showSlide(index) {
 
-        slides.forEach(slide => {
+        slides.forEach(function (slide) {
             slide.classList.remove("active");
         });
 
-        dots.forEach(dot => {
+        dots.forEach(function (dot) {
             dot.classList.remove("active");
         });
 
@@ -27,30 +34,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function nextSlide() {
 
-        let next = current + 1;
+        current++;
 
-        if (next >= slides.length) {
-            next = 0;
+        if (current >= slides.length) {
+            current = 0;
         }
 
-        showSlide(next);
-
+        showSlide(current);
     }
 
-    let timer = setInterval(nextSlide, 5000);
+    function startSlider() {
 
-    dots.forEach((dot, index) => {
-
-        dot.addEventListener("click", () => {
-
+        if (timer) {
             clearInterval(timer);
+        }
+
+        timer = setInterval(nextSlide, 5000);
+    }
+
+    dots.forEach(function (dot, index) {
+
+        dot.addEventListener("click", function () {
 
             showSlide(index);
 
-            timer = setInterval(nextSlide, 5000);
+            startSlider();
 
         });
 
     });
+
+    showSlide(0);
+
+    startSlider();
 
 });
