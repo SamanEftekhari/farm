@@ -41,7 +41,10 @@ LOCAL_APPS = [
     "analytics",
     "dashboard",
     "api",
-     "organization.apps.OrganizationConfig",
+    "project",
+    "hr.apps.HrConfig",
+    "organization.apps.OrganizationConfig",
+    "gis.apps.GisConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
