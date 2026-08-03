@@ -34,7 +34,6 @@ LOCAL_APPS = [
     "accounts",
     "common",
     "core",
-    "farms",
     "maps",
     "sensors",
     "prediction",
