@@ -44,6 +44,8 @@ LOCAL_APPS = [
     "hr.apps.HrConfig",
     "organization.apps.OrganizationConfig",
     "gis.apps.GisConfig",
+    "farmland",
+    "crops",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
