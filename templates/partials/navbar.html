@@ -1,21 +1,125 @@
-<nav class="navbar navbar-dark bg-success">
+<nav class="navbar navbar-expand-lg asigi-navbar">
 
-    <div class="container-fluid">
+    <div class="container-fluid px-4">
 
-        <span class="navbar-brand">
+        <!-- Brand -->
+        <a
+            class="navbar-brand asigi-brand"
+            href="/"
+        >
+            <span class="brand-icon">🌱</span>
+            <span>Smart ASIGI Farm</span>
+        </a>
 
-            🌱 Smart ASIGI Farm
 
-        </span>
+        <!-- Mobile Button -->
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <div>
 
-            <i class="bi bi-bell fs-4 text-white me-3"></i>
+        <div
+            class="collapse navbar-collapse"
+            id="mainNavbar"
+        >
 
-            <i class="bi bi-person-circle fs-4 text-white"></i>
+            <!-- Main Menu -->
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="/"
+                    >
+                        <i class="bi bi-house-door"></i>
+                        خانه
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="/maps/"
+                    >
+                        <i class="bi bi-map"></i>
+                        نقشه
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="/api/docs/"
+                    >
+                        <i class="bi bi-code-slash"></i>
+                        API Docs
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#features"
+                    >
+                        <i class="bi bi-grid"></i>
+                        امکانات
+                    </a>
+                </li>
+
+            </ul>
+
+
+            <!-- Right Actions -->
+            <div class="navbar-actions">
+
+                {% if user.is_authenticated %}
+
+                    <a
+                        href="/dashboard/"
+                        class="nav-action"
+                        title="داشبورد"
+                    >
+                        <i class="bi bi-speedometer2"></i>
+                    </a>
+
+                    <a
+                        href="#"
+                        class="nav-action"
+                        title="اعلان‌ها"
+                    >
+                        <i class="bi bi-bell"></i>
+                    </a>
+
+                    <span class="user-name">
+                        {{ user.get_username }}
+                    </span>
+
+                {% else %}
+
+                    <a
+                        href="/accounts/login/"
+                        class="btn btn-light login-btn"
+                    >
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        ورود
+                    </a>
+
+                {% endif %}
+
+            </div>
 
         </div>
 
     </div>
-
 </nav>

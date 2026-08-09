@@ -1,78 +1,179 @@
 {% extends "base.html" %}
 
+{% block title %}
+داشبورد - Smart ASIGI Farm
+{% endblock %}
+
+
 {% block content %}
 
-<h2 class="mb-4">
+<div class="dashboard-wrapper">
 
-داشبورد مدیریت مزرعه
+    {% include "partials/sidebar.html" %}
 
-</h2>
 
-<div class="row">
+    <section class="dashboard-main">
 
-    <div class="col-md-3">
+        <div class="dashboard-header">
 
-        <div class="card shadow">
+            <div>
 
-            <div class="card-body">
+                <h1>
+                    داشبورد
+                </h1>
 
-                <h5>مزارع</h5>
+                <p>
+                    به سامانه Smart ASIGI Farm خوش آمدید.
+                </p>
 
-                <h2>12</h2>
+            </div>
+
+
+            <div class="dashboard-date">
+                <i class="bi bi-calendar3"></i>
+                {% now "Y/m/d" %}
+            </div>
+
+        </div>
+
+
+        <!-- Statistics -->
+
+        <div class="row g-4 mb-4">
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="dashboard-card">
+
+                    <div class="dashboard-card-icon">
+                        🌱
+                    </div>
+
+                    <div>
+                        <span>مزارع</span>
+                        <strong>0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="dashboard-card">
+
+                    <div class="dashboard-card-icon">
+                        🌾
+                    </div>
+
+                    <div>
+                        <span>محصولات</span>
+                        <strong>0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="dashboard-card">
+
+                    <div class="dashboard-card-icon">
+                        🚜
+                    </div>
+
+                    <div>
+                        <span>عملیات</span>
+                        <strong>0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="dashboard-card">
+
+                    <div class="dashboard-card-icon">
+                        📦
+                    </div>
+
+                    <div>
+                        <span>موجودی</span>
+                        <strong>0</strong>
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
 
-    <div class="col-md-3">
+        <!-- Quick Access -->
 
-        <div class="card shadow">
+        <div class="dashboard-panel">
 
-            <div class="card-body">
+            <div class="panel-header">
 
-                <h5>قطعات</h5>
+                <h3>
+                    دسترسی سریع
+                </h3>
 
-                <h2>145</h2>
+            </div>
+
+
+            <div class="row g-3">
+
+                <div class="col-md-3">
+
+                    <a href="#" class="quick-card">
+                        <i class="bi bi-tree"></i>
+                        <span>مدیریت مزارع</span>
+                    </a>
+
+                </div>
+
+
+                <div class="col-md-3">
+
+                    <a href="/maps/" class="quick-card">
+                        <i class="bi bi-map"></i>
+                        <span>نقشه مزارع</span>
+                    </a>
+
+                </div>
+
+
+                <div class="col-md-3">
+
+                    <a href="#" class="quick-card">
+                        <i class="bi bi-flower1"></i>
+                        <span>محصولات</span>
+                    </a>
+
+                </div>
+
+
+                <div class="col-md-3">
+
+                    <a href="#" class="quick-card">
+                        <i class="bi bi-bar-chart"></i>
+                        <span>گزارش‌ها</span>
+                    </a>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
-
-    <div class="col-md-3">
-
-        <div class="card shadow">
-
-            <div class="card-body">
-
-                <h5>برداشت امروز</h5>
-
-                <h2>1850 kg</h2>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="col-md-3">
-
-        <div class="card shadow">
-
-            <div class="card-body">
-
-                <h5>انبار</h5>
-
-                <h2>25 Ton</h2>
-
-            </div>
-
-        </div>
-
-    </div>
+    </section>
 
 </div>
 
