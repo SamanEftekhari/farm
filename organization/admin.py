@@ -1,85 +1,86 @@
 from django.contrib import admin
 
-from .models import Organization
+from organization.models import Organization
 
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
 
     list_display = (
-        "code",
         "name",
         "short_name",
         "organization_type",
         "manager",
         "phone",
-        "is_active",
+        "email",
+    )
+
+    search_fields = (
+        "name",
+        "short_name",
+        "national_id",
+        "economic_code",
+        "manager",
+        "phone",
+        "mobile",
+        "email",
     )
 
     list_filter = (
         "organization_type",
-        "is_active",
-    )
-
-    search_fields = (
-        "code",
-        "name",
-        "short_name",
-        "manager",
-        "phone",
-        "national_id",
     )
 
     readonly_fields = (
-        "created_at",
-        "updated_at",
+        "created_by",
+        "updated_by",
     )
 
     fieldsets = (
+        (
+            "اطلاعات سازمان",
+            {
+                "fields": (
+                    "name",
+                    "short_name",
+                    "organization_type",
+                    "national_id",
+                    "economic_code",
+                )
+            },
+        ),
+        (
+            "اطلاعات تماس",
+            {
+                "fields": (
+                    "manager",
+                    "phone",
+                    "mobile",
+                    "email",
+                    "website",
+                    "address",
+                )
+            },
+        ),
+        (
+            "تصویر",
+            {
+                "fields": (
+                    "logo",
+                )
+            },
+        ),
+        (
+            "اطلاعات ثبت",
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "created_by",
+                    "updated_by",
+                )
+            },
+        ),
+    )
 
-        ("اطلاعات اصلی", {
-            "fields": (
-                "code",
-                "name",
-                "short_name",
-                "organization_type",
-                "logo",
-            )
-        }),
-
-        ("اطلاعات مدیریتی", {
-            "fields": (
-                "manager",
-                "national_id",
-                "economic_code",
-            )
-        }),
-
-        ("اطلاعات تماس", {
-            "fields": (
-                "phone",
-                "mobile",
-                "email",
-                "website",
-                "address",
-            )
-        }),
-
-        ("سایر", {
-            "fields": (
-                "description",
-                "is_active",
-            )
-        }),
-
-        ("سیستمی", {
-            "classes": ("collapse",),
-            "fields": (
-                "created_at",
-                "updated_at",
-                "created_by",
-                "updated_by",
-            )
-        }),
-
+    ordering = (
+        "name",
     )

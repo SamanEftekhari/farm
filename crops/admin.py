@@ -1,7 +1,5 @@
 from django.contrib import admin
 
-from common.admin import BaseAdmin
-
 from .models import (
     Crop,
     CropCategory,
@@ -9,10 +7,53 @@ from .models import (
     CropVariety,
     SeedCompany,
     Seed,
+    CropGrowthStage,
     CropDisease,
     CropPest,
-    CropGrowthStage,
 )
+
+
+@admin.register(Crop)
+class CropAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "code",
+        "name",
+        "category",
+        "season",
+        "scientific_name",
+        "expected_yield",
+        "is_active",
+        "created_at",
+    )
+
+    search_fields = (
+        "code",
+        "name",
+        "scientific_name",
+    )
+
+    list_filter = (
+        "category",
+        "season",
+        "is_active",
+    )
+
+    autocomplete_fields = (
+        "category",
+        "season",
+        "diseases",
+    )
+
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+    )
+
+    ordering = (
+        "name",
+    )
+
 
 @admin.register(CropCategory)
 class CropCategoryAdmin(admin.ModelAdmin):
@@ -30,6 +71,140 @@ class CropCategoryAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(Season)
+class SeasonAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "name",
+    )
+
+    search_fields = (
+        "name",
+    )
+
+    ordering = (
+        "name",
+    )
+
+
+@admin.register(CropVariety)
+class CropVarietyAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "code",
+        "name",
+        "crop",
+        "maturity_days",
+        "expected_yield",
+        "fruit_weight",
+        "brix",
+        "is_active",
+    )
+
+    search_fields = (
+        "code",
+        "name",
+        "crop__name",
+    )
+
+    list_filter = (
+        "is_active",
+        "crop",
+    )
+
+    autocomplete_fields = (
+        "crop",
+    )
+
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+    )
+
+    ordering = (
+        "name",
+    )
+
+
+@admin.register(SeedCompany)
+class SeedCompanyAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "code",
+        "name",
+        "country",
+        "phone",
+        "email",
+        "is_active",
+    )
+
+    search_fields = (
+        "code",
+        "name",
+        "country",
+        "phone",
+        "email",
+    )
+
+    list_filter = (
+        "is_active",
+        "country",
+    )
+
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+    )
+
+    ordering = (
+        "name",
+    )
+
+
+@admin.register(Seed)
+class SeedAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "lot_number",
+        "variety",
+        "company",
+        "production_date",
+        "expiry_date",
+        "germination",
+        "purity",
+        "stock",
+        "is_active",
+    )
+
+    search_fields = (
+        "lot_number",
+        "serial_number",
+        "certificate_number",
+        "variety__name",
+        "company__name",
+    )
+
+    list_filter = (
+        "is_active",
+        "company",
+        "variety__crop",
+    )
+
+    autocomplete_fields = (
+        "company",
+        "variety",
+    )
+
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+    )
+
+    ordering = (
+        "-production_date",
+    )
+
+
 @admin.register(CropGrowthStage)
 class CropGrowthStageAdmin(admin.ModelAdmin):
 
@@ -41,17 +216,49 @@ class CropGrowthStageAdmin(admin.ModelAdmin):
         "end_day",
     )
 
-    list_filter = (
-        "crop",
-    )
-
     search_fields = (
         "name",
+        "crop__name",
+    )
+
+    list_filter = (
+        "crop",
     )
 
     autocomplete_fields = (
         "crop",
     )
+
+    ordering = (
+        "crop",
+        "order",
+    )
+
+
+@admin.register(CropDisease)
+class CropDiseaseAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "code",
+        "name",
+        "scientific_name",
+        "is_active",
+    )
+
+    search_fields = (
+        "code",
+        "name",
+        "scientific_name",
+    )
+
+    list_filter = (
+        "is_active",
+    )
+
+    ordering = (
+        "name",
+    )
+
 
 @admin.register(CropPest)
 class CropPestAdmin(admin.ModelAdmin):
@@ -71,57 +278,6 @@ class CropPestAdmin(admin.ModelAdmin):
         "is_active",
     )
 
-
-@admin.register(CropDisease)
-class CropDiseaseAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "code",
-        "name",
-        "scientific_name",
-        "is_active",
-    )
-
-    search_fields = (
-        "code",
+    ordering = (
         "name",
     )
-
-    list_filter = (
-        "is_active",
-    )
-
-
-@admin.register(Seed)
-class SeedAdmin(BaseAdmin):
-
-    search_fields = (
-        "lot_number",
-        "serial_number",
-    )
-
-    list_display = (
-        "lot_number",
-        "company",
-        "variety",
-        "stock",
-    )
-
-
-@admin.register(Crop)
-class CropAdmin(BaseAdmin):
-
-    search_fields = (
-        "code",
-        "name",
-        "scientific_name",
-    )
-
-@admin.register(CropVariety)
-class CropVarietyAdmin(admin.ModelAdmin):
-
-    search_fields = (
-        "code",
-        "name",
-    )
-
