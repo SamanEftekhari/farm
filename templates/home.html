@@ -54,17 +54,17 @@ Smart ASIGI Farm
                     ورود به داشبورد
                 </a>
 
-            {% else %}
+       {% else %}
 
-                <a
-                    href="/accounts/login/"
-                    class="btn btn-success hero-btn"
-                >
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    ورود به سامانه
-                </a>
+    <a
+        href="{% url 'login' %}"
+        class="btn btn-success hero-btn"
+    >
+        <i class="bi bi-box-arrow-in-right"></i>
+        ورود به سامانه
+    </a>
 
-            {% endif %}
+{% endif %}
 
         </div>
 
