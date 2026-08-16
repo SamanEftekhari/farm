@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold">
+            {{ company.name }}
+        </h2>
+
+        <div class="d-flex gap-2">
+
+            <a
+                href="{% url 'crops:seed_company_update' company.pk %}"
+                class="btn btn-warning"
+            >
+                <i class="bi bi-pencil"></i>
+                ویرایش
+            </a>
+
+            <a
+                href="{% url 'crops:seed_company_list' %}"
+                class="btn btn-secondary"
+            >
+                بازگشت
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body">
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+                    <small class="text-muted">کد شرکت</small>
+                    <h5>{{ company.code }}</h5>
+                </div>
+
+                <div class="col-md-8">
+                    <small class="text-muted">نام شرکت</small>
+                    <h5>{{ company.name }}</h5>
+                </div>
+
+                <div class="col-md-4">
+                    <small class="text-muted">کشور</small>
+                    <p>{{ company.country|default:"-" }}</p>
+                </div>
+
+                <div class="col-md-8">
+                    <small class="text-muted">وب‌سایت</small>
+                    <p>
+                        {% if company.website %}
+                            <a
+                                href="{{ company.website }}"
+                                target="_blank"
+                            >
+                                {{ company.website }}
+                            </a>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <small class="text-muted">ایمیل</small>
+                    <p>{{ company.email|default:"-" }}</p>
+                </div>
+
+                <div class="col-md-6">
+                    <small class="text-muted">تلفن</small>
+                    <p>{{ company.phone|default:"-" }}</p>
+                </div>
+
+                <div class="col-12">
+                    <small class="text-muted">آدرس</small>
+                    <p>
+                        {{ company.address|default:"-"|linebreaks }}
+                    </p>
+                </div>
+
+                <div class="col-12">
+                    <small class="text-muted">توضیحات</small>
+                    <p>
+                        {{ company.description|default:"-"|linebreaks }}
+                    </p>
+                </div>
+
+                <div class="col-12">
+
+                    {% if company.is_active %}
+                        <span class="badge bg-success">
+                            فعال
+                        </span>
+                    {% else %}
+                        <span class="badge bg-secondary">
+                            غیرفعال
+                        </span>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

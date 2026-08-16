@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-9">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-success text-white">
+
+                    <h5 class="mb-0">
+                        {{ title }}
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form method="post">
+
+                        {% csrf_token %}
+
+                        {{ form.non_field_errors }}
+
+
+                        <div class="row g-3">
+
+
+                            <!-- محصول -->
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    محصول
+                                </label>
+
+                                {{ form.crop }}
+
+                                {{ form.crop.errors }}
+
+                            </div>
+
+
+                            <!-- کد -->
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    کد رقم
+                                </label>
+
+                                {{ form.code }}
+
+                                {{ form.code.errors }}
+
+                            </div>
+
+
+                            <!-- نام -->
+
+                            <div class="col-md-8">
+
+                                <label class="form-label">
+                                    نام رقم
+                                </label>
+
+                                {{ form.name }}
+
+                                {{ form.name.errors }}
+
+                            </div>
+
+
+                            <!-- دوره رسیدگی -->
+
+                            <div class="col-md-4">
+
+                                <label class="form-label">
+                                    دوره رسیدگی (روز)
+                                </label>
+
+                                {{ form.maturity_days }}
+
+                            </div>
+
+
+                            <!-- عملکرد -->
+
+                            <div class="col-md-4">
+
+                                <label class="form-label">
+                                    عملکرد مورد انتظار
+                                    (تن در هکتار)
+                                </label>
+
+                                {{ form.expected_yield }}
+
+                            </div>
+
+
+                            <!-- وزن میوه -->
+
+                            <div class="col-md-4">
+
+                                <label class="form-label">
+                                    میانگین وزن میوه (گرم)
+                                </label>
+
+                                {{ form.fruit_weight }}
+
+                            </div>
+
+
+                            <!-- بریکس -->
+
+                            <div class="col-md-4">
+
+                                <label class="form-label">
+                                    درجه بریکس
+                                </label>
+
+                                {{ form.brix }}
+
+                            </div>
+
+
+                            <!-- مقاومت -->
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+                                    مقاومت به بیماری
+                                </label>
+
+                                {{ form.disease_resistance }}
+
+                            </div>
+
+
+                            <!-- توضیحات -->
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+                                    توضیحات
+                                </label>
+
+                                {{ form.notes }}
+
+                            </div>
+
+
+                            <!-- فعال -->
+
+                            <div class="col-12">
+
+                                <div class="form-check">
+
+                                    {{ form.is_active }}
+
+                                    <label class="form-check-label">
+                                        رقم فعال است
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="mt-4 d-flex gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-success"
+                            >
+
+                                <i class="bi bi-check-lg"></i>
+
+                                {{ button_text }}
+
+                            </button>
+
+                            <a
+                                href="{% url 'crops:crop_variety_list' %}"
+                                class="btn btn-secondary"
+                            >
+                                انصراف
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -7,31 +7,44 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h2 class="fw-bold mb-1">محصولات</h2>
+            <h2 class="fw-bold mb-1">
+                مدیریت بذرها
+            </h2>
+
             <p class="text-muted mb-0">
-                مدیریت محصولات کشاورزی
+                ثبت و مدیریت موجودی بذرهای کشاورزی
             </p>
         </div>
 
-        <a href="{% url 'crops:create' %}" class="btn btn-success">
+        <a
+            href="{% url 'crops:seed_create' %}"
+            class="btn btn-success"
+        >
             <i class="bi bi-plus-lg"></i>
-            ثبت محصول جدید
+            ثبت بذر جدید
         </a>
 
     </div>
 
 
     {% if messages %}
+
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show">
+
+            <div class="alert alert-success alert-dismissible fade show">
+
                 {{ message }}
+
                 <button
                     type="button"
                     class="btn-close"
                     data-bs-dismiss="alert"
                 ></button>
+
             </div>
+
         {% endfor %}
+
     {% endif %}
 
 
@@ -39,7 +52,7 @@
 
         <div class="card-body p-0">
 
-            {% if crops %}
+            {% if seeds %}
 
                 <div class="table-responsive">
 
@@ -48,20 +61,27 @@
                         <thead class="table-light">
 
                             <tr>
+
                                 <th>#</th>
-                                <th>کد</th>
-                                <th>نام محصول</th>
-                                <th>نام علمی</th>
+                                <th>شرکت</th>
+                                <th>رقم</th>
+                                <th>شماره بچ</th>
+                                <th>تاریخ تولید</th>
+                                <th>تاریخ انقضا</th>
+                                <th>موجودی</th>
+                                <th>جوانه‌زنی</th>
                                 <th>وضعیت</th>
-                                <th>تاریخ ثبت</th>
-                                <th class="text-center">عملیات</th>
+                                <th class="text-center">
+                                    عملیات
+                                </th>
+
                             </tr>
 
                         </thead>
 
                         <tbody>
 
-                            {% for crop in crops %}
+                            {% for seed in seeds %}
 
                                 <tr>
 
@@ -70,37 +90,51 @@
                                     </td>
 
                                     <td>
-                                        <span class="badge bg-secondary">
-                                            {{ crop.code }}
-                                        </span>
+                                        {{ seed.company }}
+                                    </td>
+
+                                    <td>
+                                        {{ seed.variety }}
                                     </td>
 
                                     <td>
                                         <strong>
-                                            {{ crop.name }}
+                                            {{ seed.lot_number }}
                                         </strong>
                                     </td>
 
                                     <td>
-                                        {{ crop.scientific_name|default:"-" }}
+                                        {{ seed.production_date|date:"Y/m/d"|default:"-" }}
+                                    </td>
+
+                                    <td>
+                                        {{ seed.expiry_date|date:"Y/m/d"|default:"-" }}
+                                    </td>
+
+                                    <td>
+                                        {{ seed.stock }}
+                                    </td>
+
+                                    <td>
+                                        {{ seed.germination }}%
                                     </td>
 
                                     <td>
 
-                                        {% if crop.is_active %}
+                                        {% if seed.is_active %}
+
                                             <span class="badge bg-success">
                                                 فعال
                                             </span>
+
                                         {% else %}
+
                                             <span class="badge bg-secondary">
                                                 غیرفعال
                                             </span>
+
                                         {% endif %}
 
-                                    </td>
-
-                                    <td>
-                                        {{ crop.created_at|date:"Y/m/d" }}
                                     </td>
 
                                     <td class="text-center">
@@ -108,25 +142,22 @@
                                         <div class="btn-group">
 
                                             <a
-                                                href="{% url 'crops:detail' crop.pk %}"
+                                                href="{% url 'crops:seed_detail' seed.pk %}"
                                                 class="btn btn-sm btn-outline-primary"
-                                                title="مشاهده"
                                             >
                                                 <i class="bi bi-eye"></i>
                                             </a>
 
                                             <a
-                                                href="{% url 'crops:update' crop.pk %}"
+                                                href="{% url 'crops:seed_update' seed.pk %}"
                                                 class="btn btn-sm btn-outline-warning"
-                                                title="ویرایش"
                                             >
                                                 <i class="bi bi-pencil"></i>
                                             </a>
 
                                             <a
-                                                href="{% url 'crops:delete' crop.pk %}"
+                                                href="{% url 'crops:seed_delete' seed.pk %}"
                                                 class="btn btn-sm btn-outline-danger"
-                                                title="حذف"
                                             >
                                                 <i class="bi bi-trash"></i>
                                             </a>
@@ -149,17 +180,17 @@
 
                 <div class="text-center py-5">
 
-                    <i class="bi bi-flower1 display-4 text-muted"></i>
+                    <i class="bi bi-box-seam display-4 text-muted"></i>
 
                     <h5 class="mt-3">
-                        هنوز محصولی ثبت نشده است
+                        هنوز بذری ثبت نشده است
                     </h5>
 
                     <a
-                        href="{% url 'crops:create' %}"
+                        href="{% url 'crops:seed_create' %}"
                         class="btn btn-success mt-2"
                     >
-                        ثبت اولین محصول
+                        ثبت اولین بذر
                     </a>
 
                 </div>

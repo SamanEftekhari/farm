@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold">
+            جزئیات محصول
+        </h2>
+
+        <div class="d-flex gap-2">
+
+            <a
+                href="{% url 'crops:update' crop.pk %}"
+                class="btn btn-warning"
+            >
+                <i class="bi bi-pencil"></i>
+                ویرایش
+            </a>
+
+            <a
+                href="{% url 'crops:list' %}"
+                class="btn btn-secondary"
+            >
+                بازگشت
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body">
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        کد محصول
+                    </label>
+
+                    <h5>
+                        {{ crop.code }}
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        نام محصول
+                    </label>
+
+                    <h5>
+                        {{ crop.name }}
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        نام علمی
+                    </label>
+
+                    <h5>
+                        {{ crop.scientific_name|default:"-" }}
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        وضعیت
+                    </label>
+
+                    <h5>
+
+                        {% if crop.is_active %}
+                            <span class="badge bg-success">
+                                فعال
+                            </span>
+                        {% else %}
+                            <span class="badge bg-secondary">
+                                غیرفعال
+                            </span>
+                        {% endif %}
+
+                    </h5>
+
+                </div>
+
+
+                <div class="col-12">
+
+                    <label class="text-muted">
+                        توضیحات
+                    </label>
+
+                    <p>
+                        {{ crop.description|default:"توضیحی ثبت نشده است."|linebreaks }}
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        تاریخ ایجاد
+                    </label>
+
+                    <p>
+                        {{ crop.created_at|date:"Y/m/d H:i" }}
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <label class="text-muted">
+                        آخرین ویرایش
+                    </label>
+
+                    <p>
+                        {{ crop.updated_at|date:"Y/m/d H:i" }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

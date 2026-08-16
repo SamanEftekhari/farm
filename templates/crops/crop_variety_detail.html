@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                {{ variety.name }}
+            </h2>
+
+            <p class="text-muted mb-0">
+                {{ variety.crop.name }}
+            </p>
+
+        </div>
+
+        <div class="d-flex gap-2">
+
+            <a
+                href="{% url 'crops:crop_variety_update' variety.pk %}"
+                class="btn btn-warning"
+            >
+                <i class="bi bi-pencil"></i>
+                ویرایش
+            </a>
+
+            <a
+                href="{% url 'crops:crop_variety_list' %}"
+                class="btn btn-secondary"
+            >
+                بازگشت
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body">
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+
+                    <small class="text-muted">
+                        محصول
+                    </small>
+
+                    <h5>
+                        {{ variety.crop.name }}
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <small class="text-muted">
+                        کد رقم
+                    </small>
+
+                    <h5>
+                        {{ variety.code }}
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <small class="text-muted">
+                        نام رقم
+                    </small>
+
+                    <h5>
+                        {{ variety.name }}
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <small class="text-muted">
+                        دوره رسیدگی
+                    </small>
+
+                    <p>
+                        {{ variety.maturity_days }} روز
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <small class="text-muted">
+                        عملکرد مورد انتظار
+                    </small>
+
+                    <p>
+                        {{ variety.expected_yield }}
+                        تن در هکتار
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <small class="text-muted">
+                        میانگین وزن میوه
+                    </small>
+
+                    <p>
+                        {{ variety.fruit_weight }}
+                        گرم
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <small class="text-muted">
+                        درجه بریکس
+                    </small>
+
+                    <p>
+                        {{ variety.brix }}
+                    </p>
+
+                </div>
+
+
+                <div class="col-12">
+
+                    <small class="text-muted">
+                        مقاومت به بیماری
+                    </small>
+
+                    <p>
+                        {{ variety.disease_resistance|default:"-"|linebreaks }}
+                    </p>
+
+                </div>
+
+
+                <div class="col-12">
+
+                    <small class="text-muted">
+                        توضیحات
+                    </small>
+
+                    <p>
+                        {{ variety.notes|default:"-"|linebreaks }}
+                    </p>
+
+                </div>
+
+
+                <div class="col-12">
+
+                    {% if variety.is_active %}
+
+                        <span class="badge bg-success">
+                            فعال
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-secondary">
+                            غیرفعال
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
