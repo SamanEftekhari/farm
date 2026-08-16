@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-9">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-success text-white">
+
+                    <h5 class="mb-0">
+                        <i class="bi bi-building me-2"></i>
+                        {{ title }}
+                    </h5>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <form method="post">
+
+                        {% csrf_token %}
+
+
+                        {% if form.non_field_errors %}
+
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+
+                        {% endif %}
+
+
+                        <div class="row g-3">
+
+
+                            <div class="col-md-4">
+
+                                <label class="form-label">
+                                    کد شرکت
+                                </label>
+
+                                {{ form.code }}
+
+                                {{ form.code.errors }}
+
+                            </div>
+
+
+                            <div class="col-md-8">
+
+                                <label class="form-label">
+                                    نام شرکت
+                                </label>
+
+                                {{ form.name }}
+
+                                {{ form.name.errors }}
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    کشور
+                                </label>
+
+                                {{ form.country }}
+
+                                {{ form.country.errors }}
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    وب‌سایت
+                                </label>
+
+                                {{ form.website }}
+
+                                {{ form.website.errors }}
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    ایمیل
+                                </label>
+
+                                {{ form.email }}
+
+                                {{ form.email.errors }}
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    تلفن
+                                </label>
+
+                                {{ form.phone }}
+
+                                {{ form.phone.errors }}
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+                                    آدرس
+                                </label>
+
+                                {{ form.address }}
+
+                                {{ form.address.errors }}
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+                                    توضیحات
+                                </label>
+
+                                {{ form.description }}
+
+                                {{ form.description.errors }}
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <div class="form-check">
+
+                                    {{ form.is_active }}
+
+                                    <label class="form-check-label">
+                                        شرکت فعال است
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-4">
+
+
+                        <div class="d-flex justify-content-between">
+
+                            <a
+                                href="{% url 'crops:seed_company_list' %}"
+                                class="btn btn-outline-secondary"
+                            >
+                                <i class="bi bi-arrow-right"></i>
+                                انصراف
+                            </a>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-success px-4"
+                            >
+                                <i class="bi bi-check-lg"></i>
+                                {{ button_text }}
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

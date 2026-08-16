@@ -2,22 +2,26 @@
 
 {% block content %}
 
-<div class="container-fluid py-4">
+<div class="container py-4">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h2 class="fw-bold mb-1">
-                شرکت‌های تولیدکننده بذر
-            </h2>
 
-            <p class="text-muted mb-0">
-                مدیریت شرکت‌های تولیدکننده و تأمین‌کننده بذر
-            </p>
+            <h4 class="mb-1">
+                <i class="bi bi-building"></i>
+                شرکت‌های تولیدکننده بذر
+            </h4>
+
+            <div class="text-muted small">
+                مدیریت شرکت‌های تأمین‌کننده و تولیدکننده بذر
+            </div>
+
         </div>
 
+
         <a
-            href="{% url 'crops:seed_company_create' %}"
+            href="{% url 'crops:seed_company_add' %}"
             class="btn btn-success"
         >
             <i class="bi bi-plus-lg"></i>
@@ -27,157 +31,151 @@
     </div>
 
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success alert-dismissible fade show">
-                {{ message }}
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert"
-                ></button>
-            </div>
-        {% endfor %}
-    {% endif %}
-
-
     <div class="card border-0 shadow-sm">
 
         <div class="card-body p-0">
 
             {% if companies %}
 
-            <div class="table-responsive">
+                <div class="table-responsive">
 
-                <table class="table table-hover align-middle mb-0">
+                    <table class="table table-hover align-middle mb-0">
 
-                    <thead class="table-light">
+                        <thead class="table-light">
 
-                        <tr>
-                            <th>#</th>
-                            <th>کد</th>
-                            <th>نام شرکت</th>
-                            <th>کشور</th>
-                            <th>تلفن</th>
-                            <th>ایمیل</th>
-                            <th>وضعیت</th>
-                            <th class="text-center">
-                                عملیات
-                            </th>
-                        </tr>
+                            <tr>
 
-                    </thead>
+                                <th>کد</th>
 
-                    <tbody>
+                                <th>نام شرکت</th>
 
-                    {% for company in companies %}
+                                <th>کشور</th>
 
-                        <tr>
+                                <th>تلفن</th>
 
-                            <td>
-                                {{ forloop.counter }}
-                            </td>
+                                <th>ایمیل</th>
 
-                            <td>
-                                <span class="badge bg-secondary">
-                                    {{ company.code }}
-                                </span>
-                            </td>
+                                <th>وضعیت</th>
 
-                            <td>
-                                <strong>
-                                    {{ company.name }}
-                                </strong>
-                            </td>
+                                <th class="text-center">
+                                    عملیات
+                                </th>
 
-                            <td>
-                                {{ company.country|default:"-" }}
-                            </td>
+                            </tr>
 
-                            <td>
-                                {{ company.phone|default:"-" }}
-                            </td>
+                        </thead>
 
-                            <td>
-                                {{ company.email|default:"-" }}
-                            </td>
 
-                            <td>
+                        <tbody>
 
-                                {% if company.is_active %}
+                            {% for company in companies %}
 
-                                    <span class="badge bg-success">
-                                        فعال
-                                    </span>
+                                <tr>
 
-                                {% else %}
+                                    <td>
+                                        <strong>
+                                            {{ company.code }}
+                                        </strong>
+                                    </td>
 
-                                    <span class="badge bg-secondary">
-                                        غیرفعال
-                                    </span>
 
-                                {% endif %}
+                                    <td>
+                                        {{ company.name }}
+                                    </td>
 
-                            </td>
 
-                            <td class="text-center">
+                                    <td>
+                                        {{ company.country|default:"-" }}
+                                    </td>
 
-                                <div class="btn-group">
 
-                                    <a
-                                        href="{% url 'crops:seed_company_detail' company.pk %}"
-                                        class="btn btn-sm btn-outline-primary"
-                                    >
-                                        <i class="bi bi-eye"></i>
-                                    </a>
+                                    <td>
+                                        {{ company.phone|default:"-" }}
+                                    </td>
 
-                                    <a
-                                        href="{% url 'crops:seed_company_update' company.pk %}"
-                                        class="btn btn-sm btn-outline-warning"
-                                    >
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
 
-                                    <a
-                                        href="{% url 'crops:seed_company_delete' company.pk %}"
-                                        class="btn btn-sm btn-outline-danger"
-                                    >
-                                        <i class="bi bi-trash"></i>
-                                    </a>
+                                    <td>
+                                        {{ company.email|default:"-" }}
+                                    </td>
 
-                                </div>
 
-                            </td>
+                                    <td>
 
-                        </tr>
+                                        {% if company.is_active %}
 
-                    {% endfor %}
+                                            <span class="badge bg-success">
+                                                فعال
+                                            </span>
 
-                    </tbody>
+                                        {% else %}
 
-                </table>
+                                            <span class="badge bg-secondary">
+                                                غیرفعال
+                                            </span>
 
-            </div>
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <td class="text-center">
+
+                                        <div class="btn-group">
+
+                                            <a
+                                                href="{% url 'crops:seed_company_edit' company.pk %}"
+                                                class="btn btn-sm btn-outline-primary"
+                                                title="ویرایش"
+                                            >
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+
+
+                                            <a
+                                                href="{% url 'crops:seed_company_delete' company.pk %}"
+                                                class="btn btn-sm btn-outline-danger"
+                                                title="حذف"
+                                            >
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
 
             {% else %}
 
-            <div class="text-center py-5">
+                <div class="text-center py-5">
 
-                <i class="bi bi-building display-4 text-muted"></i>
+                    <i class="bi bi-building fs-1 text-muted"></i>
 
-                <h5 class="mt-3">
-                    هنوز شرکتی ثبت نشده است
-                </h5>
+                    <h5 class="mt-3">
+                        هنوز شرکتی ثبت نشده است
+                    </h5>
 
-                <a
-                    href="{% url 'crops:seed_company_create' %}"
-                    class="btn btn-success mt-2"
-                >
-                    ثبت اولین شرکت
-                </a>
+                    <p class="text-muted">
+                        اولین شرکت تولیدکننده بذر را ثبت کنید.
+                    </p>
 
-            </div>
+                    <a
+                        href="{% url 'crops:seed_company_add' %}"
+                        class="btn btn-success"
+                    >
+                        <i class="bi bi-plus-lg"></i>
+                        ثبت شرکت
+                    </a>
+
+                </div>
 
             {% endif %}
 

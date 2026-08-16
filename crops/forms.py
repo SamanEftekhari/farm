@@ -1,74 +1,87 @@
 from django import forms
-from django import forms
 
-from .models import CropVariety
+from .models import (
+    Crop,
+    CropCategory,
+    CropDisease,
+    CropVariety,
+    Season,
+    Seed,
+    SeedCompany,
+)
 
-from .models import Crop
+
+# ==========================================================
+# BASE BOOTSTRAP FORM
+# ==========================================================
+
+class BootstrapModelForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+
+            if isinstance(field.widget, forms.CheckboxInput):
+
+                field.widget.attrs["class"] = "form-check-input"
+
+            elif isinstance(field.widget, forms.Select):
+
+                field.widget.attrs["class"] = "form-select"
+
+            elif isinstance(field.widget, forms.SelectMultiple):
+
+                field.widget.attrs["class"] = "form-select"
+
+            else:
+
+                field.widget.attrs["class"] = "form-control"
 
 
-class CropForm(forms.ModelForm):
+# ==========================================================
+# SEED COMPANY
+# ==========================================================
+
+class SeedCompanyForm(BootstrapModelForm):
 
     class Meta:
-        model = Crop
+
+        model = SeedCompany
+
         fields = [
             "code",
             "name",
-            "scientific_name",
+            "country",
+            "website",
+            "email",
+            "phone",
+            "address",
             "description",
             "is_active",
         ]
 
-        widgets = {
-            "code": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "مثلاً CROP-001",
-                }
-            ),
-            "name": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "نام محصول",
-                }
-            ),
-            "scientific_name": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "نام علمی",
-                }
-            ),
-            "description": forms.Textarea(
-                attrs={
-                    "class": "form-control",
-                    "rows": 4,
-                    "placeholder": "توضیحات محصول",
-                }
-            ),
-            "is_active": forms.CheckboxInput(
-                attrs={
-                    "class": "form-check-input",
-                }
-            ),
-        }
-
         labels = {
-            "code": "کد محصول",
-            "name": "نام محصول",
-            "scientific_name": "نام علمی",
+            "code": "کد شرکت",
+            "name": "نام شرکت",
+            "country": "کشور",
+            "website": "وب‌سایت",
+            "email": "ایمیل",
+            "phone": "تلفن",
+            "address": "آدرس",
             "description": "توضیحات",
             "is_active": "فعال",
         }
 
 
+# ==========================================================
+# SEED
+# ==========================================================
 
-from django import forms
-
-from .models import Crop, Seed
-
-
-class SeedForm(forms.ModelForm):
+class SeedForm(BootstrapModelForm):
 
     class Meta:
+
         model = Seed
 
         fields = [
@@ -89,195 +102,207 @@ class SeedForm(forms.ModelForm):
             "is_active",
         ]
 
+        labels = {
+            "company": "شرکت تولیدکننده",
+            "variety": "رقم محصول",
+            "lot_number": "شماره بچ",
+            "serial_number": "شماره سریال",
+            "production_date": "تاریخ تولید",
+            "expiry_date": "تاریخ انقضا",
+            "package_weight": "وزن بسته (کیلوگرم)",
+            "germination": "جوانه‌زنی (%)",
+            "purity": "خلوص (%)",
+            "moisture": "رطوبت (%)",
+            "purchase_price": "قیمت خرید",
+            "stock": "موجودی",
+            "certificate_number": "شماره گواهی",
+            "notes": "توضیحات",
+            "is_active": "فعال",
+        }
+
         widgets = {
-            "company": forms.Select(
-                attrs={"class": "form-select"}
-            ),
-
-            "variety": forms.Select(
-                attrs={"class": "form-select"}
-            ),
-
-            "lot_number": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "شماره بچ",
-                }
-            ),
-
-            "serial_number": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "شماره سریال",
-                }
-            ),
-
             "production_date": forms.DateInput(
                 attrs={
-                    "class": "form-control",
                     "type": "date",
                 }
             ),
 
             "expiry_date": forms.DateInput(
                 attrs={
-                    "class": "form-control",
                     "type": "date",
-                }
-            ),
-
-            "package_weight": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "step": "0.01",
-                    "min": "0",
-                }
-            ),
-
-            "germination": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "step": "0.01",
-                    "min": "0",
-                    "max": "100",
-                }
-            ),
-
-            "purity": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "step": "0.01",
-                    "min": "0",
-                    "max": "100",
-                }
-            ),
-
-            "moisture": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "step": "0.01",
-                    "min": "0",
-                    "max": "100",
-                }
-            ),
-
-            "purchase_price": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "step": "0.01",
-                    "min": "0",
-                }
-            ),
-
-            "stock": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "step": "0.01",
-                    "min": "0",
-                }
-            ),
-
-            "certificate_number": forms.TextInput(
-                attrs={
-                    "class": "form-control",
                 }
             ),
 
             "notes": forms.Textarea(
                 attrs={
-                    "class": "form-control",
                     "rows": 4,
-                }
-            ),
-
-            "is_active": forms.CheckboxInput(
-                attrs={
-                    "class": "form-check-input",
                 }
             ),
         }
 
 
-from .models import SeedCompany
+# ==========================================================
+# CROP CATEGORY
+# ==========================================================
 
-
-class SeedCompanyForm(forms.ModelForm):
+class CropCategoryForm(BootstrapModelForm):
 
     class Meta:
-        model = SeedCompany
+
+        model = CropCategory
+
+        fields = [
+            "name",
+            "description",
+        ]
+
+        labels = {
+            "name": "دسته محصول",
+            "description": "توضیحات",
+        }
+
+        widgets = {
+            "description": forms.Textarea(
+                attrs={
+                    "rows": 4,
+                }
+            ),
+        }
+
+
+# ==========================================================
+# SEASON
+# ==========================================================
+
+class SeasonForm(BootstrapModelForm):
+
+    class Meta:
+
+        model = Season
+
+        fields = [
+            "name",
+        ]
+
+        labels = {
+            "name": "فصل کشت",
+        }
+
+
+# ==========================================================
+# CROP DISEASE
+# ==========================================================
+
+class CropDiseaseForm(BootstrapModelForm):
+
+    class Meta:
+
+        model = CropDisease
 
         fields = [
             "code",
             "name",
-            "country",
-            "website",
-            "email",
-            "phone",
-            "address",
+            "scientific_name",
             "description",
+            "prevention",
+            "treatment",
             "is_active",
         ]
 
+        labels = {
+            "code": "کد بیماری",
+            "name": "نام بیماری",
+            "scientific_name": "نام علمی",
+            "description": "توضیحات",
+            "prevention": "روش پیشگیری",
+            "treatment": "روش کنترل",
+            "is_active": "فعال",
+        }
+
         widgets = {
-            "code": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "مثلاً SC-001",
-                }
-            ),
-            "name": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "نام شرکت",
-                }
-            ),
-            "country": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "کشور",
-                }
-            ),
-            "website": forms.URLInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "https://example.com",
-                }
-            ),
-            "email": forms.EmailInput(
-                attrs={
-                    "class": "form-control",
-                }
-            ),
-            "phone": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                }
-            ),
-            "address": forms.Textarea(
-                attrs={
-                    "class": "form-control",
-                    "rows": 3,
-                }
-            ),
+
             "description": forms.Textarea(
                 attrs={
-                    "class": "form-control",
                     "rows": 4,
                 }
             ),
-            "is_active": forms.CheckboxInput(
+
+            "prevention": forms.Textarea(
                 attrs={
-                    "class": "form-check-input",
+                    "rows": 4,
+                }
+            ),
+
+            "treatment": forms.Textarea(
+                attrs={
+                    "rows": 4,
                 }
             ),
         }
 
 
+# ==========================================================
+# CROP
+# ==========================================================
 
-
-class CropVarietyForm(forms.ModelForm):
+class CropForm(BootstrapModelForm):
 
     class Meta:
+
+        model = Crop
+
+        fields = [
+            "category",
+            "season",
+            "code",
+            "name",
+            "scientific_name",
+            "color",
+            "expected_yield",
+            "image",
+            "description",
+            "is_active",
+            "diseases",
+        ]
+
+        labels = {
+            "category": "دسته محصول",
+            "season": "فصل کشت",
+            "code": "کد محصول",
+            "name": "نام محصول",
+            "scientific_name": "نام علمی",
+            "color": "رنگ محصول",
+            "expected_yield": "عملکرد مورد انتظار (تن در هکتار)",
+            "image": "تصویر",
+            "description": "توضیحات",
+            "is_active": "فعال",
+            "diseases": "بیماری‌ها",
+        }
+
+        widgets = {
+
+            "description": forms.Textarea(
+                attrs={
+                    "rows": 4,
+                }
+            ),
+
+            "diseases": forms.SelectMultiple(
+                attrs={
+                    "class": "form-select",
+                }
+            ),
+        }
+
+
+# ==========================================================
+# CROP VARIETY
+# ==========================================================
+
+class CropVarietyForm(BootstrapModelForm):
+
+    class Meta:
+
         model = CropVariety
 
         fields = [
@@ -293,76 +318,30 @@ class CropVarietyForm(forms.ModelForm):
             "is_active",
         ]
 
+        labels = {
+            "crop": "محصول",
+            "code": "کد رقم",
+            "name": "نام رقم",
+            "maturity_days": "دوره رسیدگی (روز)",
+            "expected_yield": "عملکرد مورد انتظار (تن در هکتار)",
+            "fruit_weight": "میانگین وزن میوه (گرم)",
+            "brix": "درجه بریکس",
+            "disease_resistance": "مقاومت به بیماری",
+            "notes": "توضیحات",
+            "is_active": "فعال",
+        }
+
         widgets = {
-            "crop": forms.Select(
-                attrs={
-                    "class": "form-select",
-                }
-            ),
-
-            "code": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "مثلاً TOM-001",
-                }
-            ),
-
-            "name": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "نام رقم",
-                }
-            ),
-
-            "maturity_days": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "min": "0",
-                }
-            ),
-
-            "expected_yield": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "step": "0.01",
-                    "min": "0",
-                }
-            ),
-
-            "fruit_weight": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "step": "0.01",
-                    "min": "0",
-                }
-            ),
-
-            "brix": forms.NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "step": "0.01",
-                    "min": "0",
-                }
-            ),
 
             "disease_resistance": forms.Textarea(
                 attrs={
-                    "class": "form-control",
-                    "rows": "3",
-                    "placeholder": "مقاومت‌های رقم به بیماری‌ها",
+                    "rows": 4,
                 }
             ),
 
             "notes": forms.Textarea(
                 attrs={
-                    "class": "form-control",
-                    "rows": "3",
-                }
-            ),
-
-            "is_active": forms.CheckboxInput(
-                attrs={
-                    "class": "form-check-input",
+                    "rows": 4,
                 }
             ),
         }
