@@ -1,54 +1,58 @@
 from django.db import models
 
 
+# ==========================================================
+# FARM
+# ==========================================================
+
 class Farm(models.Model):
 
     code = models.CharField(
         max_length=20,
         unique=True,
         editable=False,
-        verbose_name="کد مزرعه"
+        verbose_name="کد مزرعه",
     )
 
     name = models.CharField(
         max_length=200,
-        verbose_name="نام مزرعه"
+        verbose_name="نام مزرعه",
     )
 
     company = models.CharField(
         max_length=200,
         blank=True,
-        verbose_name="شرکت"
+        verbose_name="شرکت",
     )
 
     manager = models.CharField(
         max_length=150,
         blank=True,
-        verbose_name="مدیر مزرعه"
+        verbose_name="مدیر مزرعه",
     )
 
     area = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name="مساحت (هکتار)"
+        verbose_name="مساحت (هکتار)",
     )
 
     province = models.CharField(
         max_length=100,
         blank=True,
-        verbose_name="استان"
+        verbose_name="استان",
     )
 
     city = models.CharField(
         max_length=100,
         blank=True,
-        verbose_name="شهر"
+        verbose_name="شهر",
     )
 
     address = models.TextField(
         blank=True,
-        verbose_name="آدرس"
+        verbose_name="آدرس",
     )
 
     latitude = models.DecimalField(
@@ -56,7 +60,7 @@ class Farm(models.Model):
         decimal_places=7,
         blank=True,
         null=True,
-        verbose_name="عرض جغرافیایی"
+        verbose_name="عرض جغرافیایی",
     )
 
     longitude = models.DecimalField(
@@ -64,25 +68,25 @@ class Farm(models.Model):
         decimal_places=7,
         blank=True,
         null=True,
-        verbose_name="طول جغرافیایی"
+        verbose_name="طول جغرافیایی",
     )
 
     description = models.TextField(
         blank=True,
-        verbose_name="توضیحات"
+        verbose_name="توضیحات",
     )
 
     is_active = models.BooleanField(
         default=True,
-        verbose_name="فعال"
+        verbose_name="فعال",
     )
 
     created_at = models.DateTimeField(
-        auto_now_add=True
+        auto_now_add=True,
     )
 
     updated_at = models.DateTimeField(
-        auto_now=True
+        auto_now=True,
     )
 
     class Meta:
@@ -93,20 +97,29 @@ class Farm(models.Model):
     def save(self, *args, **kwargs):
 
         if not self.code:
-            last_farm = Farm.objects.order_by("-id").first()
+            last_farm = (
+                Farm.objects
+                .order_by("-id")
+                .first()
+            )
 
-            if last_farm:
-                number = last_farm.id + 1
-            else:
-                number = 1
+            next_number = (
+                last_farm.id + 1
+                if last_farm
+                else 1
+            )
 
-            self.code = f"FARM-{number:04d}"
+            self.code = f"FARM-{next_number:04d}"
 
         super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.code} - {self.name}"
 
+
+# ==========================================================
+# FIELD
+# ==========================================================
 
 class Field(models.Model):
 
@@ -132,6 +145,7 @@ class Field(models.Model):
     area = models.DecimalField(
         max_digits=10,
         decimal_places=2,
+        default=0,
         verbose_name="مساحت (هکتار)",
     )
 
@@ -189,30 +203,6 @@ class Field(models.Model):
         auto_now=True,
     )
 
-    def save(self, *args, **kwargs):
-
-        if not self.code:
-
-            last_field = (
-                Field.objects
-                .filter(code__startswith="FIELD-")
-                .order_by("-id")
-                .first()
-            )
-
-            if last_field:
-                try:
-                    last_number = int(
-                        last_field.code.split("-")[-1]
-                    )
-                except (ValueError, IndexError):
-                    last_number = 0
-            else:
-                last_number = 0
-
-            self.code = f"FIELD-{last_number + 1:04d}"
-
-        super().save(*args, **kwargs)
     class Meta:
         ordering = ["name"]
         verbose_name = "قطعه زمین"
@@ -221,20 +211,29 @@ class Field(models.Model):
     def save(self, *args, **kwargs):
 
         if not self.code:
-            last_field = Field.objects.order_by("-id").first()
+            last_field = (
+                Field.objects
+                .order_by("-id")
+                .first()
+            )
 
-            if last_field:
-                number = last_field.id + 1
-            else:
-                number = 1
+            next_number = (
+                last_field.id + 1
+                if last_field
+                else 1
+            )
 
-            self.code = f"FIELD-{number:04d}"
+            self.code = f"FIELD-{next_number:04d}"
 
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.farm} - {self.name}"
+        return f"{self.code} - {self.name}"
 
+
+# ==========================================================
+# GREENHOUSE
+# ==========================================================
 
 class Greenhouse(models.Model):
 
@@ -280,23 +279,37 @@ class Greenhouse(models.Model):
         verbose_name="فعال",
     )
 
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "گلخانه"
+        verbose_name_plural = "گلخانه‌ها"
+
     def save(self, *args, **kwargs):
 
         if not self.code:
-            last_greenhouse = Greenhouse.objects.order_by("-id").first()
+            last_greenhouse = (
+                Greenhouse.objects
+                .order_by("-id")
+                .first()
+            )
 
-            if last_greenhouse:
-                number = last_greenhouse.id + 1
-            else:
-                number = 1
+            next_number = (
+                last_greenhouse.id + 1
+                if last_greenhouse
+                else 1
+            )
 
-            self.code = f"GH-{number:04d}"
+            self.code = f"GH-{next_number:04d}"
 
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return f"{self.code} - {self.name}"
 
+
+# ==========================================================
+# WELL
+# ==========================================================
 
 class Well(models.Model):
 
@@ -354,23 +367,37 @@ class Well(models.Model):
         verbose_name="فعال",
     )
 
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "چاه"
+        verbose_name_plural = "چاه‌ها"
+
     def save(self, *args, **kwargs):
 
         if not self.code:
-            last_well = Well.objects.order_by("-id").first()
+            last_well = (
+                Well.objects
+                .order_by("-id")
+                .first()
+            )
 
-            if last_well:
-                number = last_well.id + 1
-            else:
-                number = 1
+            next_number = (
+                last_well.id + 1
+                if last_well
+                else 1
+            )
 
-            self.code = f"WELL-{number:04d}"
+            self.code = f"WELL-{next_number:04d}"
 
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return f"{self.code} - {self.name}"
 
+
+# ==========================================================
+# RESERVOIR
+# ==========================================================
 
 class Reservoir(models.Model):
 
@@ -428,45 +455,29 @@ class Reservoir(models.Model):
         verbose_name="فعال",
     )
 
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "مخزن"
+        verbose_name_plural = "مخازن"
+
     def save(self, *args, **kwargs):
 
         if not self.code:
-            last_reservoir = Reservoir.objects.order_by("-id").first()
+            last_reservoir = (
+                Reservoir.objects
+                .order_by("-id")
+                .first()
+            )
 
-            if last_reservoir:
-                number = last_reservoir.id + 1
-            else:
-                number = 1
+            next_number = (
+                last_reservoir.id + 1
+                if last_reservoir
+                else 1
+            )
 
-            self.code = f"RES-{number:04d}"
+            self.code = f"RES-{next_number:04d}"
 
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
-
-
-def save(self, *args, **kwargs):
-
-    if not self.code:
-
-        last_farm = (
-            Farm.objects
-            .filter(code__startswith="FARM-")
-            .order_by("-id")
-            .first()
-        )
-
-        if last_farm:
-            try:
-                last_number = int(
-                    last_farm.code.split("-")[-1]
-                )
-            except (ValueError, IndexError):
-                last_number = 0
-        else:
-            last_number = 0
-
-        self.code = f"FARM-{last_number + 1:04d}"
-
-    super().save(*args, **kwargs)
+        return f"{self.code} - {self.name}"
