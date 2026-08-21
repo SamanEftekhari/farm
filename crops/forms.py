@@ -22,18 +22,22 @@ class BootstrapModelForm(forms.ModelForm):
 
         for field in self.fields.values():
 
+            # Checkbox
             if isinstance(field.widget, forms.CheckboxInput):
 
                 field.widget.attrs["class"] = "form-check-input"
 
-            elif isinstance(field.widget, forms.Select):
-
-                field.widget.attrs["class"] = "form-select"
-
+            # Multiple Select
             elif isinstance(field.widget, forms.SelectMultiple):
 
                 field.widget.attrs["class"] = "form-select"
 
+            # Normal Select
+            elif isinstance(field.widget, forms.Select):
+
+                field.widget.attrs["class"] = "form-select"
+
+            # Other inputs
             else:
 
                 field.widget.attrs["class"] = "form-control"
@@ -71,6 +75,21 @@ class SeedCompanyForm(BootstrapModelForm):
             "address": "آدرس",
             "description": "توضیحات",
             "is_active": "فعال",
+        }
+
+        widgets = {
+
+            "address": forms.Textarea(
+                attrs={
+                    "rows": 3,
+                }
+            ),
+
+            "description": forms.Textarea(
+                attrs={
+                    "rows": 4,
+                }
+            ),
         }
 
 
@@ -121,6 +140,7 @@ class SeedForm(BootstrapModelForm):
         }
 
         widgets = {
+
             "production_date": forms.DateInput(
                 attrs={
                     "type": "date",
@@ -162,6 +182,7 @@ class CropCategoryForm(BootstrapModelForm):
         }
 
         widgets = {
+
             "description": forms.Textarea(
                 attrs={
                     "rows": 4,
@@ -276,7 +297,7 @@ class CropForm(BootstrapModelForm):
             "image": "تصویر",
             "description": "توضیحات",
             "is_active": "فعال",
-            "diseases": "بیماری‌ها",
+            "diseases": "بیماری‌های مرتبط",
         }
 
         widgets = {
@@ -284,12 +305,14 @@ class CropForm(BootstrapModelForm):
             "description": forms.Textarea(
                 attrs={
                     "rows": 4,
+                    "placeholder": "توضیحات محصول...",
                 }
             ),
 
             "diseases": forms.SelectMultiple(
                 attrs={
                     "class": "form-select",
+                    "size": 6,
                 }
             ),
         }
@@ -333,6 +356,12 @@ class CropVarietyForm(BootstrapModelForm):
 
         widgets = {
 
+            "maturity_days": forms.NumberInput(
+                attrs={
+                    "min": 0,
+                }
+            ),
+
             "disease_resistance": forms.Textarea(
                 attrs={
                     "rows": 4,
@@ -343,5 +372,56 @@ class CropVarietyForm(BootstrapModelForm):
                 attrs={
                     "rows": 4,
                 }
+            ),
+        }
+
+
+class SeasonForm(BootstrapModelForm):
+
+    class Meta:
+        model = Season
+
+        fields = [
+            "name",
+        ]
+
+        labels = {
+            "name": "فصل کشت",
+        }
+
+class CropDiseaseForm(BootstrapModelForm):
+
+    class Meta:
+        model = CropDisease
+
+        fields = [
+            "code",
+            "name",
+            "scientific_name",
+            "description",
+            "prevention",
+            "treatment",
+            "is_active",
+        ]
+
+        labels = {
+            "code": "کد بیماری",
+            "name": "نام بیماری",
+            "scientific_name": "نام علمی",
+            "description": "توضیحات",
+            "prevention": "روش پیشگیری",
+            "treatment": "روش کنترل",
+            "is_active": "فعال",
+        }
+
+        widgets = {
+            "description": forms.Textarea(
+                attrs={"rows": 4}
+            ),
+            "prevention": forms.Textarea(
+                attrs={"rows": 4}
+            ),
+            "treatment": forms.Textarea(
+                attrs={"rows": 4}
             ),
         }

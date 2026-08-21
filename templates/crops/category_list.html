@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">
+                دسته‌بندی محصولات
+            </h2>
+
+            <p class="text-muted mb-0">
+                مدیریت دسته‌های محصولات کشاورزی
+            </p>
+        </div>
+
+        <a
+            href="{% url 'crops:category_create' %}"
+            class="btn btn-success"
+        >
+            <i class="bi bi-plus-lg"></i>
+            ثبت دسته جدید
+        </a>
+
+    </div>
+
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-0">
+
+            {% if categories %}
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle mb-0">
+
+                        <thead class="table-light">
+
+                            <tr>
+                                <th>#</th>
+                                <th>نام دسته</th>
+                                <th>توضیحات</th>
+                                <th>تعداد محصولات</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for category in categories %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ forloop.counter }}
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ category.name }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ category.description|default:"-" }}
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-success">
+                                            {{ category.crops.count }}
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="text-center py-5">
+
+                    <i class="bi bi-grid display-4 text-muted"></i>
+
+                    <h5 class="mt-3">
+                        هنوز دسته‌ای ثبت نشده است
+                    </h5>
+
+                    <a
+                        href="{% url 'crops:category_create' %}"
+                        class="btn btn-success mt-2"
+                    >
+                        ثبت اولین دسته
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

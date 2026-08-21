@@ -90,4 +90,8 @@ urlpatterns = [
         auth_views.LogoutView.as_view(),
         name="logout",
     ),
+    path(
+        "farmland/",
+        include("farmland.urls"),
+    ),
 ]

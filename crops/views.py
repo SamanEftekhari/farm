@@ -7,6 +7,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy
+
+from .models import CropCategory
+from .forms import CropCategoryForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -986,3 +991,23 @@ class CropDiseaseCreateView(LoginRequiredMixin, CreateView):
         "title": "ثبت بیماری",
         "button_text": "ثبت بیماری",
     }
+
+
+class CropCategoryListView(ListView):
+    model = CropCategory
+    template_name = "crops/category_list.html"
+    context_object_name = "categories"
+    ordering = ["name"]
+
+
+class CropCategoryCreateView(CreateView):
+    model = CropCategory
+    form_class = CropCategoryForm
+    template_name = "crops/category_form.html"
+    success_url = reverse_lazy("crops:category_list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "ثبت دسته محصول"
+        context["button_text"] = "ثبت دسته"
+        return context

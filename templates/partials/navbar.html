@@ -1,26 +1,18 @@
-{% load static %}
-
 <nav class="navbar navbar-expand-lg asigi-navbar">
 
     <div class="container-fluid px-4">
 
-        <!-- =====================================================
-             BRAND
-        ====================================================== -->
-
+        <!-- Brand -->
         <a
             class="navbar-brand asigi-brand"
-            href="{% url 'home' %}"
+            href="/"
         >
             <span class="brand-icon">🌱</span>
             <span>Smart ASIGI Farm</span>
         </a>
 
 
-        <!-- =====================================================
-             MOBILE BUTTON
-        ====================================================== -->
-
+        <!-- Mobile -->
         <button
             class="navbar-toggler"
             type="button"
@@ -28,289 +20,338 @@
             data-bs-target="#mainNavbar"
             aria-controls="mainNavbar"
             aria-expanded="false"
-            aria-label="باز کردن منو"
+            aria-label="Toggle navigation"
         >
             <span class="navbar-toggler-icon"></span>
         </button>
 
-
-        <!-- =====================================================
-             NAVBAR
-        ====================================================== -->
 
         <div
             class="collapse navbar-collapse"
             id="mainNavbar"
         >
 
-
-            <!-- =================================================
-                 MAIN HORIZONTAL MENU
-            ================================================== -->
-
+            <!-- Main Menu -->
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
 
-
                 <!-- خانه -->
-
                 <li class="nav-item">
-
-                    <a
-                        class="nav-link"
-                        href="{% url 'home' %}"
-                    >
-                        <i class="bi bi-house-door me-1"></i>
+                    <a class="nav-link" href="/">
+                        <i class="bi bi-house-door"></i>
                         خانه
                     </a>
-
                 </li>
 
 
-                <!-- داشبورد -->
-
-                {% if user.is_authenticated %}
-
-                    <li class="nav-item">
-
-                        <a
-                            class="nav-link"
-                            href="/dashboard/"
-                        >
-                            <i class="bi bi-speedometer2 me-1"></i>
-                            داشبورد
-                        </a>
-
-                    </li>
-
-                {% endif %}
-
-
-                <!-- =================================================
-                     ورود اطلاعات
-                     فقط بعد از Login
-                ================================================== -->
-
-                {% if user.is_authenticated %}
-
-                    <li class="nav-item dropdown">
-
-                        <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            id="dataEntryDropdown"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            <i class="bi bi-database-add me-1"></i>
-                            ورود اطلاعات
-                        </a>
-
-
-                        <ul
-                            class="dropdown-menu dropdown-menu-end shadow"
-                            aria-labelledby="dataEntryDropdown"
-                        >
-
-                            <!-- بذر -->
-
-                            <li>
-                                <h6 class="dropdown-header">
-                                    <i class="bi bi-flower1 me-1"></i>
-                                    مدیریت بذر
-                                </h6>
-                            </li>
-
-
-                            <li>
-
-                                <a
-                                    class="dropdown-item"
-                                    href="{% url 'crops:seed_company_list' %}"
-                                >
-                                    <i class="bi bi-building me-2"></i>
-                                    شرکت‌های تولیدکننده بذر
-                                </a>
-
-                            </li>
-
-
-                            <li>
-
-                                <a
-                                    class="dropdown-item"
-                                    href="{% url 'crops:seed_company_add' %}"
-                                >
-                                    <i class="bi bi-building-add me-2"></i>
-                                    ثبت شرکت جدید
-                                </a>
-
-                            </li>
-
-
-                            <li>
-
-                                <a
-                                    class="dropdown-item"
-                                    href="{% url 'crops:seed_list' %}"
-                                >
-                                    <i class="bi bi-box-seam me-2"></i>
-                                    بذرها
-                                </a>
-
-                            </li>
-
-
-                            <li>
-
-                                <a
-                                    class="dropdown-item"
-                                    href="{% url 'crops:seed_create' %}"
-                                >
-                                    <i class="bi bi-plus-square me-2"></i>
-                                    ثبت بذر جدید
-                                </a>
-
-                            </li>
-
-
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-
-
-                            <!-- محصولات -->
-
-                            <li>
-
-                                <h6 class="dropdown-header">
-                                    <i class="bi bi-tree me-1"></i>
-                                    محصولات
-                                </h6>
-
-                            </li>
-
-
-                            <!-- فعلاً غیرفعال تا URL آنها را بسازیم -->
-
-                            <li>
-
-                                <span
-                                    class="dropdown-item-text text-muted"
-                                >
-                                    <i class="bi bi-clock me-2"></i>
-                                    محصولات و ارقام — به‌زودی
-                                </span>
-
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-                {% endif %}
-
-
-                <!-- =================================================
-                     نقشه
-                ================================================== -->
-
+                <!-- نقشه -->
                 <li class="nav-item">
-
-                    <a
-                        class="nav-link"
-                        href="/maps/"
-                    >
-                        <i class="bi bi-map me-1"></i>
+                    <a class="nav-link" href="/maps/">
+                        <i class="bi bi-map"></i>
                         نقشه
                     </a>
-
                 </li>
 
 
-                <!-- =================================================
-                     امکانات
-                ================================================== -->
+                <!-- ============================= -->
+                <!-- مدیریت کشاورزی -->
+                <!-- ============================= -->
 
-                <li class="nav-item">
+                <li class="nav-item dropdown">
 
                     <a
-                        class="nav-link"
-                        href="#features"
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        data-bs-toggle="dropdown"
                     >
-                        <i class="bi bi-grid me-1"></i>
-                        امکانات
+                        <i class="bi bi-grid-3x3-gap"></i>
+                        مدیریت کشاورزی
                     </a>
+
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+
+                        <!-- محصولات -->
+
+                        <li class="dropdown-submenu">
+
+                            <a
+                                class="dropdown-item dropdown-toggle"
+                                href="#"
+                            >
+                                <i class="bi bi-flower1"></i>
+                                محصولات
+                            </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:crop_list' %}"
+                                    >
+                                        فهرست محصولات
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:crop_create' %}"
+                                    >
+                                        ثبت محصول
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+
+                        <!-- ارقام -->
+
+                        <li class="dropdown-submenu">
+
+                            <a
+                                class="dropdown-item dropdown-toggle"
+                                href="#"
+                            >
+                                <i class="bi bi-diagram-3"></i>
+                                ارقام
+                            </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:variety_list' %}"
+                                    >
+                                        فهرست ارقام
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:variety_create' %}"
+                                    >
+                                        ثبت رقم
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+
+                        <!-- بذر -->
+
+                        <li class="dropdown-submenu">
+
+                            <a
+                                class="dropdown-item dropdown-toggle"
+                                href="#"
+                            >
+                                <i class="bi bi-box-seam"></i>
+                                بذر
+                            </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:seed_list' %}"
+                                    >
+                                        فهرست بذرها
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:seed_create' %}"
+                                    >
+                                        ثبت بذر
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:seed_company_list' %}"
+                                    >
+                                        شرکت‌های بذر
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:seed_company_add' %}"
+                                    >
+                                        ثبت شرکت
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+
+                        <!-- دسته محصولات -->
+
+                        <li class="dropdown-submenu">
+
+                            <a
+                                class="dropdown-item dropdown-toggle"
+                                href="#"
+                            >
+                                <i class="bi bi-tags"></i>
+                                دسته محصولات
+                            </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:category_list' %}"
+                                    >
+                                        فهرست دسته‌ها
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:category_create' %}"
+                                    >
+                                        ثبت دسته
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+
+                        <!-- فصل -->
+
+                        <li class="dropdown-submenu">
+
+                            <a
+                                class="dropdown-item dropdown-toggle"
+                                href="#"
+                            >
+                                <i class="bi bi-calendar3"></i>
+                                فصل کشت
+                            </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:season_list' %}"
+                                    >
+                                        فهرست فصل‌ها
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:season_create' %}"
+                                    >
+                                        ثبت فصل
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+
+                        <!-- بیماری -->
+
+                        <li class="dropdown-submenu">
+
+                            <a
+                                class="dropdown-item dropdown-toggle"
+                                href="#"
+                            >
+                                <i class="bi bi-bug"></i>
+                                بیماری‌ها
+                            </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:disease_list' %}"
+                                    >
+                                        فهرست بیماری‌ها
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'crops:disease_create' %}"
+                                    >
+                                        ثبت بیماری
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
 
                 </li>
 
 
-                <!-- =================================================
-                     API DOCS
-                ================================================== -->
+                <!-- امکانات -->
 
                 <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="/#features"
+                    >
+                        <i class="bi bi-grid"></i>
+                        امکانات
+                    </a>
+                </li>
 
+
+                <!-- API -->
+
+                <li class="nav-item">
                     <a
                         class="nav-link"
                         href="/api/docs/"
-                        target="_blank"
                     >
-                        <i class="bi bi-code-slash me-1"></i>
-                        API Docs
+                        <i class="bi bi-code-slash"></i>
+                        API
                     </a>
-
                 </li>
-
-
-                <!-- =================================================
-                     ADMIN
-                     فقط بعد از Login
-                ================================================== -->
-
-                {% if user.is_authenticated %}
-
-                    <li class="nav-item">
-
-                        <a
-                            class="nav-link"
-                            href="/admin/"
-                            target="_blank"
-                        >
-                            <i class="bi bi-gear me-1"></i>
-                            مدیریت
-                        </a>
-
-                    </li>
-
-                {% endif %}
-
 
             </ul>
 
 
-            <!-- =====================================================
-                 RIGHT SIDE
-            ====================================================== -->
+            <!-- Right -->
 
-            <div class="navbar-actions d-flex align-items-center">
-
+            <div class="navbar-actions">
 
                 {% if user.is_authenticated %}
-
-
-                    <!-- اعلان -->
-
-                    <a
-                        href="#"
-                        class="nav-action"
-                        title="اعلان‌ها"
-                    >
-                        <i class="bi bi-bell"></i>
-                    </a>
-
-
-                    <!-- داشبورد سریع -->
 
                     <a
                         href="/dashboard/"
@@ -320,110 +361,46 @@
                         <i class="bi bi-speedometer2"></i>
                     </a>
 
+                    <a
+                        href="#"
+                        class="nav-action"
+                        title="اعلان‌ها"
+                    >
+                        <i class="bi bi-bell"></i>
+                    </a>
 
-                    <!-- =================================================
-                         USER DROPDOWN
-                    ================================================== -->
+                    <span class="user-name">
+                        <i class="bi bi-person-circle"></i>
+                        {{ user.get_username }}
+                    </span>
 
-                    <div class="dropdown ms-2">
+                    <form
+                        method="post"
+                        action="{% url 'logout' %}"
+                        class="d-inline"
+                    >
+                        {% csrf_token %}
 
                         <button
-                            class="btn user-menu dropdown-toggle"
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
+                            type="submit"
+                            class="btn btn-outline-light btn-sm"
                         >
-
-                            <i class="bi bi-person-circle me-1"></i>
-
-                            <span class="user-name">
-                                {{ user.get_username }}
-                            </span>
-
+                            <i class="bi bi-box-arrow-left"></i>
+                            خروج
                         </button>
-
-
-                        <ul
-                            class="dropdown-menu dropdown-menu-end shadow"
-                        >
-
-                            <li>
-
-                                <a
-                                    class="dropdown-item"
-                                    href="#"
-                                >
-                                    <i class="bi bi-person me-2"></i>
-                                    پروفایل
-                                </a>
-
-                            </li>
-
-
-                            <li>
-
-                                <a
-                                    class="dropdown-item"
-                                    href="#"
-                                >
-                                    <i class="bi bi-gear me-2"></i>
-                                    تنظیمات
-                                </a>
-
-                            </li>
-
-
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-
-
-                            <!-- خروج -->
-
-                            <li>
-
-                                <form
-                                    method="post"
-                                    action="{% url 'logout' %}"
-                                >
-
-                                    {% csrf_token %}
-
-                                    <button
-                                        type="submit"
-                                        class="dropdown-item text-danger"
-                                    >
-                                        <i class="bi bi-box-arrow-right me-2"></i>
-                                        خروج
-                                    </button>
-
-                                </form>
-
-                            </li>
-
-                        </ul>
-
-                    </div>
-
+                    </form>
 
                 {% else %}
-
-
-                    <!-- =================================================
-                         LOGIN
-                    ================================================== -->
 
                     <a
                         href="{% url 'login' %}"
                         class="btn btn-light login-btn"
                     >
-                        <i class="bi bi-box-arrow-in-right me-1"></i>
+                        <i class="bi bi-box-arrow-in-right"></i>
                         ورود
                     </a>
 
-
                 {% endif %}
-
 
             </div>
 

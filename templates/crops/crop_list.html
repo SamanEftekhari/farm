@@ -4,16 +4,26 @@
 
 <div class="container-fluid py-4">
 
+    <!-- ===================================================== -->
+    <!-- HEADER -->
+    <!-- ===================================================== -->
+
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h2 class="fw-bold mb-1">محصولات</h2>
+            <h2 class="fw-bold mb-1">
+                محصولات
+            </h2>
+
             <p class="text-muted mb-0">
                 مدیریت محصولات کشاورزی
             </p>
         </div>
 
-        <a href="{% url 'crops:create' %}" class="btn btn-success">
+        <a
+            href="{% url 'crops:crop_create' %}"
+            class="btn btn-success"
+        >
             <i class="bi bi-plus-lg"></i>
             ثبت محصول جدید
         </a>
@@ -21,19 +31,38 @@
     </div>
 
 
+    <!-- ===================================================== -->
+    <!-- MESSAGES -->
+    <!-- ===================================================== -->
+
     {% if messages %}
+
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show">
+
+            <div
+                class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show"
+                role="alert"
+            >
+
                 {{ message }}
+
                 <button
                     type="button"
                     class="btn-close"
                     data-bs-dismiss="alert"
+                    aria-label="بستن"
                 ></button>
+
             </div>
+
         {% endfor %}
+
     {% endif %}
 
+
+    <!-- ===================================================== -->
+    <!-- CROPS TABLE -->
+    <!-- ===================================================== -->
 
     <div class="card shadow-sm border-0">
 
@@ -48,16 +77,47 @@
                         <thead class="table-light">
 
                             <tr>
-                                <th>#</th>
-                                <th>کد</th>
-                                <th>نام محصول</th>
-                                <th>نام علمی</th>
-                                <th>وضعیت</th>
-                                <th>تاریخ ثبت</th>
-                                <th class="text-center">عملیات</th>
+
+                                <th>
+                                    #
+                                </th>
+
+                                <th>
+                                    کد
+                                </th>
+
+                                <th>
+                                    نام محصول
+                                </th>
+
+                                <th>
+                                    نام علمی
+                                </th>
+
+                                <th>
+                                    دسته
+                                </th>
+
+                                <th>
+                                    فصل
+                                </th>
+
+                                <th>
+                                    وضعیت
+                                </th>
+
+                                <th>
+                                    تاریخ ثبت
+                                </th>
+
+                                <th class="text-center">
+                                    عملیات
+                                </th>
+
                             </tr>
 
                         </thead>
+
 
                         <tbody>
 
@@ -65,70 +125,160 @@
 
                                 <tr>
 
+                                    <!-- شماره -->
+
                                     <td>
                                         {{ forloop.counter }}
                                     </td>
 
+
+                                    <!-- کد -->
+
                                     <td>
+
                                         <span class="badge bg-secondary">
                                             {{ crop.code }}
                                         </span>
+
                                     </td>
 
+
+                                    <!-- نام -->
+
                                     <td>
+
                                         <strong>
                                             {{ crop.name }}
                                         </strong>
+
                                     </td>
+
+
+                                    <!-- نام علمی -->
 
                                     <td>
                                         {{ crop.scientific_name|default:"-" }}
                                     </td>
 
+
+                                    <!-- دسته -->
+
                                     <td>
 
-                                        {% if crop.is_active %}
-                                            <span class="badge bg-success">
-                                                فعال
-                                            </span>
+                                        {% if crop.category %}
+
+                                            {{ crop.category.name }}
+
                                         {% else %}
-                                            <span class="badge bg-secondary">
-                                                غیرفعال
+
+                                            <span class="text-muted">
+                                                -
                                             </span>
+
                                         {% endif %}
 
                                     </td>
 
+
+                                    <!-- فصل -->
+
                                     <td>
-                                        {{ crop.created_at|date:"Y/m/d" }}
+
+                                        {% if crop.season %}
+
+                                            {{ crop.season.name }}
+
+                                        {% else %}
+
+                                            <span class="text-muted">
+                                                -
+                                            </span>
+
+                                        {% endif %}
+
                                     </td>
+
+
+                                    <!-- وضعیت -->
+
+                                    <td>
+
+                                        {% if crop.is_active %}
+
+                                            <span class="badge bg-success">
+                                                فعال
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="badge bg-secondary">
+                                                غیرفعال
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <!-- تاریخ -->
+
+                                    <td>
+
+                                        {% if crop.created_at %}
+
+                                            {{ crop.created_at|date:"Y/m/d" }}
+
+                                        {% else %}
+
+                                            -
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <!-- عملیات -->
 
                                     <td class="text-center">
 
-                                        <div class="btn-group">
+                                        <div class="btn-group" role="group">
+
+                                            <!-- مشاهده -->
 
                                             <a
-                                                href="{% url 'crops:detail' crop.pk %}"
+                                                href="{% url 'crops:crop_detail' crop.pk %}"
                                                 class="btn btn-sm btn-outline-primary"
                                                 title="مشاهده"
                                             >
+
                                                 <i class="bi bi-eye"></i>
+
                                             </a>
 
+
+                                            <!-- ویرایش -->
+
                                             <a
-                                                href="{% url 'crops:update' crop.pk %}"
+                                                href="{% url 'crops:crop_update' crop.pk %}"
                                                 class="btn btn-sm btn-outline-warning"
                                                 title="ویرایش"
                                             >
+
                                                 <i class="bi bi-pencil"></i>
+
                                             </a>
 
+
+                                            <!-- حذف -->
+
                                             <a
-                                                href="{% url 'crops:delete' crop.pk %}"
+                                                href="{% url 'crops:crop_delete' crop.pk %}"
                                                 class="btn btn-sm btn-outline-danger"
                                                 title="حذف"
                                             >
+
                                                 <i class="bi bi-trash"></i>
+
                                             </a>
 
                                         </div>
@@ -145,7 +295,12 @@
 
                 </div>
 
+
             {% else %}
+
+                <!-- ================================================= -->
+                <!-- EMPTY STATE -->
+                <!-- ================================================= -->
 
                 <div class="text-center py-5">
 
@@ -155,11 +310,19 @@
                         هنوز محصولی ثبت نشده است
                     </h5>
 
+                    <p class="text-muted">
+                        برای شروع، اولین محصول کشاورزی را ثبت کنید.
+                    </p>
+
                     <a
-                        href="{% url 'crops:create' %}"
+                        href="{% url 'crops:crop_create' %}"
                         class="btn btn-success mt-2"
                     >
+
+                        <i class="bi bi-plus-lg"></i>
+
                         ثبت اولین محصول
+
                     </a>
 
                 </div>

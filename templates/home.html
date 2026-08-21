@@ -9,9 +9,16 @@ Smart ASIGI Farm
 
 {% block content %}
 
+<!-- =========================================================
+     HERO
+========================================================= -->
+
 <section class="hero-section">
 
     <div class="hero-overlay"></div>
+
+
+    <!-- HERO CONTENT -->
 
     <div class="hero-content">
 
@@ -19,13 +26,16 @@ Smart ASIGI Farm
             SMART AGRICULTURE PLATFORM
         </div>
 
+
         <h1>
             ASIGI FARM
         </h1>
 
+
         <h2>
             سامانه هوشمند مدیریت مزارع
         </h2>
+
 
         <p>
             مدیریت هوشمند مزارع با GIS، اینترنت اشیا،
@@ -33,16 +43,9 @@ Smart ASIGI Farm
         </p>
 
 
+        <!-- فقط ورود به سامانه / داشبورد -->
+
         <div class="hero-buttons">
-
-            <a
-                href="/api/docs/"
-                class="btn btn-light hero-btn"
-            >
-                <i class="bi bi-code-slash"></i>
-                مستندات API
-            </a>
-
 
             {% if user.is_authenticated %}
 
@@ -54,22 +57,26 @@ Smart ASIGI Farm
                     ورود به داشبورد
                 </a>
 
-       {% else %}
+            {% else %}
 
-    <a
-        href="{% url 'login' %}"
-        class="btn btn-success hero-btn"
-    >
-        <i class="bi bi-box-arrow-in-right"></i>
-        ورود به سامانه
-    </a>
+                <a
+                    href="{% url 'login' %}"
+                    class="btn btn-success hero-btn"
+                >
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    ورود به سامانه
+                </a>
 
-{% endif %}
+            {% endif %}
 
         </div>
 
     </div>
 
+
+    <!-- =====================================================
+         FARM STATUS
+    ====================================================== -->
 
     <div class="hero-status">
 
@@ -77,20 +84,24 @@ Smart ASIGI Farm
             Live Farm Status
         </div>
 
+
         <div class="status-row">
             <span>26°C</span>
             <span>Temperature 🌡️</span>
         </div>
+
 
         <div class="status-row">
             <span>67%</span>
             <span>Humidity 💧</span>
         </div>
 
+
         <div class="status-row">
             <span>Online</span>
             <span>Sensors 📡</span>
         </div>
+
 
         <div class="status-row">
             <span>Ready</span>
@@ -102,12 +113,20 @@ Smart ASIGI Farm
 </section>
 
 
+
+<!-- =========================================================
+     FEATURES
+========================================================= -->
+
 <section
     id="features"
     class="features-section"
 >
 
     <div class="container">
+
+
+        <!-- SECTION TITLE -->
 
         <div class="section-heading">
 
@@ -122,7 +141,14 @@ Smart ASIGI Farm
         </div>
 
 
+        <!-- =================================================
+             FEATURE CARDS
+        ================================================== -->
+
         <div class="row g-4">
+
+
+            <!-- GIS -->
 
             <div class="col-md-4">
 
@@ -144,6 +170,9 @@ Smart ASIGI Farm
             </div>
 
 
+
+            <!-- AI -->
+
             <div class="col-md-4">
 
                 <div class="feature-card">
@@ -163,6 +192,9 @@ Smart ASIGI Farm
 
             </div>
 
+
+
+            <!-- REPORT -->
 
             <div class="col-md-4">
 

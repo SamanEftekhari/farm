@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title|default:"ثبت مزرعه" }} | Smart ASIGI Farm
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-9">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-success text-white">
+
+                    <h5 class="mb-0">
+                        <i class="bi bi-tree"></i>
+
+                        {% if object %}
+                            ویرایش مزرعه
+                        {% else %}
+                            ثبت مزرعه جدید
+                        {% endif %}
+
+                    </h5>
+
+                </div>
+
+
+                <div class="card-body p-4">
+
+                    <form method="post">
+
+                        {% csrf_token %}
+
+
+                        {% if form.non_field_errors %}
+
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+
+                        {% endif %}
+
+
+                        <div class="row g-3">
+
+
+                            <!-- نام -->
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    {{ form.name.label }}
+                                </label>
+
+                                {{ form.name }}
+
+                                {{ form.name.errors }}
+
+                            </div>
+
+
+                            <!-- شرکت -->
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    {{ form.company.label }}
+                                </label>
+
+                                {{ form.company }}
+
+                                {{ form.company.errors }}
+
+                            </div>
+
+
+                            <!-- مدیر -->
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    {{ form.manager.label }}
+                                </label>
+
+                                {{ form.manager }}
+
+                                {{ form.manager.errors }}
+
+                            </div>
+
+
+                            <!-- مساحت -->
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    {{ form.area.label }}
+                                </label>
+
+                                {{ form.area }}
+
+                                {{ form.area.errors }}
+
+                            </div>
+
+
+                            <!-- استان -->
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    {{ form.province.label }}
+                                </label>
+
+                                {{ form.province }}
+
+                            </div>
+
+
+                            <!-- شهر -->
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    {{ form.city.label }}
+                                </label>
+
+                                {{ form.city }}
+
+                            </div>
+
+
+                            <!-- آدرس -->
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+                                    {{ form.address.label }}
+                                </label>
+
+                                {{ form.address }}
+
+                            </div>
+
+
+                            <!-- latitude -->
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    {{ form.latitude.label }}
+                                </label>
+
+                                {{ form.latitude }}
+
+                            </div>
+
+
+                            <!-- longitude -->
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    {{ form.longitude.label }}
+                                </label>
+
+                                {{ form.longitude }}
+
+                            </div>
+
+
+                            <!-- توضیحات -->
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+                                    {{ form.description.label }}
+                                </label>
+
+                                {{ form.description }}
+
+                            </div>
+
+
+                            <!-- وضعیت -->
+
+                            <div class="col-12">
+
+                                <div class="form-check">
+
+                                    {{ form.is_active }}
+
+                                    <label class="form-check-label">
+                                        {{ form.is_active.label }}
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-4">
+
+
+                        <div class="d-flex gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-success"
+                            >
+
+                                <i class="bi bi-check-lg"></i>
+
+                                ذخیره
+
+                            </button>
+
+
+                            <a
+                                href="{% url 'farmland:farm_list' %}"
+                                class="btn btn-secondary"
+                            >
+
+                                <i class="bi bi-x-lg"></i>
+
+                                انصراف
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

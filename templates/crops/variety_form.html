@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-9">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-flower1"></i>
+                        {{ title|default:"ثبت رقم محصول" }}
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <form method="post">
+
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    محصول
+                                </label>
+
+                                {{ form.crop }}
+
+                                {% for error in form.crop.errors %}
+                                    <div class="text-danger small">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    کد رقم
+                                </label>
+
+                                {{ form.code }}
+
+                                {% for error in form.code.errors %}
+                                    <div class="text-danger small">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    نام رقم
+                                </label>
+
+                                {{ form.name }}
+
+                                {% for error in form.name.errors %}
+                                    <div class="text-danger small">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    دوره رسیدگی (روز)
+                                </label>
+
+                                {{ form.maturity_days }}
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label class="form-label">
+                                    عملکرد مورد انتظار
+                                    (تن در هکتار)
+                                </label>
+
+                                {{ form.expected_yield }}
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label class="form-label">
+                                    میانگین وزن میوه (گرم)
+                                </label>
+
+                                {{ form.fruit_weight }}
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label class="form-label">
+                                    درجه بریکس
+                                </label>
+
+                                {{ form.brix }}
+                            </div>
+
+
+                            <div class="col-12">
+                                <label class="form-label">
+                                    مقاومت به بیماری
+                                </label>
+
+                                {{ form.disease_resistance }}
+                            </div>
+
+
+                            <div class="col-12">
+                                <label class="form-label">
+                                    توضیحات
+                                </label>
+
+                                {{ form.notes }}
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <div class="form-check">
+
+                                    {{ form.is_active }}
+
+                                    <label class="form-check-label">
+                                        فعال
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="mt-4 d-flex gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-success"
+                            >
+                                <i class="bi bi-check-lg"></i>
+                                {{ button_text|default:"ذخیره" }}
+                            </button>
+
+
+                            <a
+                                href="{% url 'crops:variety_list' %}"
+                                class="btn btn-secondary"
+                            >
+                                <i class="bi bi-x-lg"></i>
+                                انصراف
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

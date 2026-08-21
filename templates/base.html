@@ -30,6 +30,34 @@
     >
 
     {% block extra_css %}{% endblock %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const submenus = document.querySelectorAll(
+        ".dropdown-submenu > .dropdown-item"
+    );
+
+    submenus.forEach(function (item) {
+
+        item.addEventListener("click", function (event) {
+
+            const parent = this.parentElement;
+
+            if (window.innerWidth <= 992) {
+
+                event.preventDefault();
+
+                parent.classList.toggle("show");
+
+            }
+
+        });
+
+    });
+
+});
+</script>
 </head>
 
 <body>
