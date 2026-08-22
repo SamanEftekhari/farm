@@ -94,4 +94,8 @@ urlpatterns = [
         "farmland/",
         include("farmland.urls"),
     ),
+    path(
+        "inventory/",
+         include("inventory.urls"),
+    ),
 ]
